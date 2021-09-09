@@ -2,11 +2,13 @@ import argparse
 import platform
 
 import cv2
+
 from flask import Flask, render_template, Response
+
 from camera import VideoCamera
 from objectdetector import ObjectDetector
 
-# TODO: Stream using multi-threading so to have close-real-time feed.
+
 # TODO: Single Loggerclass to debug them all.
 # TODO: Implement argparse
 # TODO: Replace FlaskAPI by FastAPI
@@ -44,7 +46,8 @@ def process_frames(cam):
 
         frame = cam.encode_frame(myframe)
         yield (b'--frame\r\n'
-                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
 
 @app.route('/')
 def index():
