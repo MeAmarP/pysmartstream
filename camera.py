@@ -26,13 +26,13 @@ class VideoCamera(object):
     def __del__(self):
         self.video.release()
 
-    def get_frame(self):
-        success, image = self.video.read()
-        objclass_values, objscore_values, objbboxes_values = ssd_mdl.detect_objects_in_frame(image)
-        for objclass_ele, score_ele,bbox_ele in zip(objclass_values, objscore_values, objbboxes_values):
-            cv2.rectangle(image, (int(bbox_ele[0]), int(bbox_ele[1])),(int(bbox_ele[2] + bbox_ele[0]), int(bbox_ele[3] + bbox_ele[1])),
-                          (0, 255, 0),
-                          thickness=2)
+    def __str__(self):
+        return f"Created Camera Stream of W = {self.video.get(cv2.CAP_PROP_FRAME_WIDTH)}," \
+               f"H = {self.video.get(cv2.CAP_PROP_FRAME_HEIGHT)}"
+
+    def encode_frame(self,frame):
+        ret, frame_jpeg = cv2.imencode('.jpg', frame)
+        return frame_jpeg.tobytes()
 
         # cv2.putText(image, (f"Detect Class-->{objclass_values}"), (10,430), cv2.FONT_HERSHEY_PLAIN, 1, (0,255,255), 2)
         # cv2.putText(image, (f"Detect Score-->{objscore_values}"), (10,450), cv2.FONT_HERSHEY_PLAIN, 1, (0,255,255), 2)
