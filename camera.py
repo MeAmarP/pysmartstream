@@ -10,12 +10,6 @@ TODO Add drawing methods(str, rect, circle) to annotate frames.
 """
 
 import cv2
-import platform
-
-if platform.machine() == 'aarch64':
-    src = 'v4l2src ! video/x-raw,width={},height={} ! videoconvert ! appsink'.format(640, 480)
-else:
-    src = 0
 
 class VideoCamera(object):
     def __init__(self,src=0, width=640, height=480):
