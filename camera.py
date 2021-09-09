@@ -1,3 +1,14 @@
+"""
+Camera.py
+
+Objective:
+- Read Camera stream from local device or Video file
+
+TODO Add class method to change or transform camera props.
+TODO Add method to compute camera performance like FPS, Latency etc.
+TODO Add drawing methods(str, rect, circle) to annotate frames.
+"""
+
 import cv2
 import platform
 
