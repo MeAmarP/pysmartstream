@@ -34,8 +34,9 @@ class VideoCamera(object):
         ret, frame_jpeg = cv2.imencode('.jpg', frame)
         return frame_jpeg.tobytes()
 
-        # cv2.putText(image, (f"Detect Class-->{objclass_values}"), (10,430), cv2.FONT_HERSHEY_PLAIN, 1, (0,255,255), 2)
-        # cv2.putText(image, (f"Detect Score-->{objscore_values}"), (10,450), cv2.FONT_HERSHEY_PLAIN, 1, (0,255,255), 2)
-        # cv2.putText(image, (f"Detect BBox-->{objbboxes_values}"), (10,470), cv2.FONT_HERSHEY_PLAIN, 1, (0,255,255), 2)
-        ret, jpeg = cv2.imencode('.jpg', image)
-        return jpeg.tobytes()
+if __name__ == '__main__':
+    cam = VideoCamera(src=0,width=1280,height=720)
+    print(cam)
+    ret,img = cam.video.read()
+    print(img.shape)
+
