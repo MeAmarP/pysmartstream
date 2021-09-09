@@ -9,7 +9,19 @@ from camera import VideoCamera
 
 app = Flask(__name__)
 
-def gen_frames(camera):
+if platform.machine() == 'aarch64':
+    src = 'v4l2src ! video/x-raw,width={},height={} ! videoconvert ! appsink'.format(640, 480)
+else:
+    src = 0
+# Init video stream with source <Local Camera = 0 | Video file>, frame Width & Height
+camera = VideoCamera(src=src, width=1280, height=720)
+
+# path_to_model_config = r'C:\\Users\\H402321\\Documents\\projects\\year2020\\tev\\pretrained-models\\tflow-models\\object detection\\ssd_mobilenet_v1_coco_2018_01_28\\ssdmbnetv1coco.pbtxt'
+# path_to_model_binfile = r'C:\\Users\\H402321\\Documents\\projects\\year2020\\tev\\pretrained-models\\tflow-models\\object detection\\ssd_mobilenet_v1_coco_2018_01_28\\frozen_inference_graph.pb'
+ssd_mdl = ObjectDetector(args.path_to_model_weights, args.path_to_model_config)
+
+
+def process_frames(cam):
     while True:
         frame = camera.get_frame()
         yield (b'--frame\r\n'
