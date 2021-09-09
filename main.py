@@ -1,6 +1,7 @@
 import cv2
 from flask import Flask, render_template, Response
 from camera import VideoCamera
+from objectdetector import ObjectDetector
 
 # TODO: Stream using multi-threading so to have close-real-time feed.
 # TODO: Single Loggerclass to debug them all.
@@ -23,7 +24,15 @@ ssd_mdl = ObjectDetector(args.path_to_model_weights, args.path_to_model_config)
 
 def process_frames(cam):
     while True:
-        frame = camera.get_frame()
+        ret, myframe = cam.video.read()
+        objclass_values, objscore_values, objbboxes_values = ssd_mdl.detect_objects_in_frame(myframe)
+        for objclass_ele, score_ele,bbox_ele in zip(objclass_values, objscore_values, objbboxes_values):
+            cv2.rectangle(myframe,
+                          (int(bbox_ele[0]), int(bbox_ele[1])),(int(bbox_ele[2] + bbox_ele[0]), int(bbox_ele[3] + bbox_ele[1])),
+                          (0, 255, 0),
+                          thickness=2)
+
+        frame = cam.encode_frame(myframe)
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
