@@ -53,7 +53,7 @@ def index():
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen_frames(VideoCamera()), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(process_frames(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == '__main__':
