@@ -1,3 +1,6 @@
+import argparse
+import platform
+
 import cv2
 from flask import Flask, render_template, Response
 from camera import VideoCamera
@@ -6,6 +9,11 @@ from objectdetector import ObjectDetector
 # TODO: Stream using multi-threading so to have close-real-time feed.
 # TODO: Single Loggerclass to debug them all.
 
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--path_to_model_config", help="Provide Path to DNN model config file.")
+parser.add_argument("--path_to_model_weights", help="Provide Path to DNN model weights file.")
+args = parser.parse_args()
 
 
 app = Flask(__name__)
