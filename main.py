@@ -8,6 +8,8 @@ from objectdetector import ObjectDetector
 
 # TODO: Stream using multi-threading so to have close-real-time feed.
 # TODO: Single Loggerclass to debug them all.
+# TODO: Implement argparse
+# TODO: Replace FlaskAPI by FastAPI
 
 
 parser = argparse.ArgumentParser()
