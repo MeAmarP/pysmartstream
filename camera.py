@@ -12,17 +12,10 @@ TODO Add drawing methods(str, rect, circle) to annotate frames.
 import cv2
 import platform
 
-from objectdetector import ObjectDetector
-
 if platform.machine() == 'aarch64':
     src = 'v4l2src ! video/x-raw,width={},height={} ! videoconvert ! appsink'.format(640, 480)
 else:
     src = 0
-
-path_to_model_config = 'pretrained-models\\tflow-models\\object detection\\ssd_mobilenet_v1_coco_2018_01_28\\ssdmbnetv1coco.pbtxt'
-path_to_model_binfile = 'pretrained-models\\tflow-models\\object detection\\ssd_mobilenet_v1_coco_2018_01_28\\frozen_inference_graph.pb'
-ssd_mdl = ObjectDetector(path_to_model_binfile, path_to_model_config)
-
 
 class VideoCamera(object):
     def __init__(self,src=0, width=640, height=480):
