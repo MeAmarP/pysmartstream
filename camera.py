@@ -41,6 +41,19 @@ class VideoCamera(object):
         ret, frame_jpeg = cv2.imencode('.jpg', frame)
         return frame_jpeg.tobytes()
 
+    def draw_str(self,img,target,s):
+        x,y = target
+        cv2.putText(img,str(s),(x+1,y+1),cv2.FONT_HERSHEY_PLAIN,1,Color.green,thickness=2,lineType=cv2.LINE_AA)
+        cv2.putText(img,str(s), (x, y), cv2.FONT_HERSHEY_PLAIN, 1, Color.black, lineType=cv2.LINE_AA)
+
+
+    def draw_rect(self):
+        pass
+
+    def draw_circle(self):
+        pass
+
+
 if __name__ == '__main__':
     cam = VideoCamera(src=0,width=1280,height=720)
     print(cam)
