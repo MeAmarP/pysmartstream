@@ -11,6 +11,19 @@ TODO Add drawing methods(str, rect, circle) to annotate frames.
 
 import cv2
 
+
+class Color:
+    violet = (211,0,148)
+    indigo = (130, 0,75)
+    blue = (255,0,0)
+    green = (0,255,0)
+    yellow = (0,255,255)
+    orange = (0,127,255)
+    red = (0,0,255)
+    black = (0,0,0)
+    white = (255,255,255)
+
+
 class VideoCamera(object):
     def __init__(self,src=0, width=640, height=480):
         self.video = cv2.VideoCapture(src)
