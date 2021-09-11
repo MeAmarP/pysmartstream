@@ -18,9 +18,9 @@ class ObjectDetector:
         return objclass, objscore, objbboxes
 
 if __name__ == '__main__':
-    path_to_model_config = 'C:\\Users\\H402321\\Documents\\projects\\year2020\\tev\\pretrained-models\\tflow-models\\object detection\\ssd_mobilenet_v1_coco_2018_01_28\\ssdmbnetv1coco.pbtxt'
-    path_to_model_binfile = 'C:\\Users\\H402321\\Documents\\projects\\year2020\\tev\\pretrained-models\\tflow-models\\object detection\\ssd_mobilenet_v1_coco_2018_01_28\\frozen_inference_graph.pb'
-    path_to_input_img = r"C:\Users\H402321\Documents\projects\year2020\tev\pretrained-models\test_img\hwell_sample16.png"
+    path_to_model_config = ''
+    path_to_model_binfile = ''
+    path_to_input_img = r""
 
     #init model
     ssd_mdl = ObjectDetector(path_to_model_binfile, path_to_model_config)
