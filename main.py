@@ -5,12 +5,11 @@ import cv2
 
 from flask import Flask, render_template, Response
 
-from camera import VideoCamera
+from camera import VideoCamera, Color
 from objectdetector import ObjectDetector
 
 
 # TODO: Single Loggerclass to debug them all.
-# TODO: Implement argparse
 # TODO: Replace FlaskAPI by FastAPI
 
 
@@ -26,7 +25,7 @@ if platform.machine() == 'aarch64':
 else:
     src = 0
 # Init video stream with source <Local Camera = 0 | Video file>, frame Width & Height
-camera = VideoCamera(src=src, width=1280, height=720)
+camera = VideoCamera(src=src, width=640, height=480)
 
 ssd_mdl = ObjectDetector(args.path_to_model_weights, args.path_to_model_config)
 
@@ -38,9 +37,9 @@ def process_frames(cam):
         for objclass_ele, score_ele,bbox_ele in zip(objclass_values, objscore_values, objbboxes_values):
             cv2.rectangle(myframe,
                           (int(bbox_ele[0]), int(bbox_ele[1])),(int(bbox_ele[2] + bbox_ele[0]), int(bbox_ele[3] + bbox_ele[1])),
-                          (0, 255, 0),
+                          Color.yellow,
                           thickness=2)
-
+        cam.draw_str(myframe,(20, 700),"Hello-World")
         frame = cam.encode_frame(myframe)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
