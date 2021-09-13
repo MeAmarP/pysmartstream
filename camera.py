@@ -13,6 +13,9 @@ import cv2
 
 
 class Color:
+    """
+    VIBGYOR+BW
+    """
     violet = (211,0,148)
     indigo = (130, 0,75)
     blue = (255,0,0)
