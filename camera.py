@@ -10,7 +10,7 @@ TODO Add drawing methods(str, rect, circle) to annotate frames.
 """
 
 import cv2
-
+import traceback
 
 class Color:
     """
@@ -29,9 +29,17 @@ class Color:
 
 class VideoCamera(object):
     def __init__(self,src=0, width=640, height=480):
-        self.video = cv2.VideoCapture(src)
-        self.video.set(cv2.CAP_PROP_FRAME_WIDTH, width)
-        self.video.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+        try:
+            self.video = cv2.VideoCapture(src)
+            if not self.video.isOpened():
+                raise IOError("Failed to open webcam.")
+        except Exception as e:
+            traceback.print_exc()
+            print(f"Error: {str(e)}")
+            exit()
+        # self.video.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+        # self.video.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+
 
     def __del__(self):
         self.video.release()
@@ -58,8 +66,15 @@ class VideoCamera(object):
 
 
 if __name__ == '__main__':
-    cam = VideoCamera(src=0,width=1280,height=720)
-    print(cam)
-    ret,img = cam.video.read()
-    print(img.shape)
+    try:
+        cam = VideoCamera(src=0,width=1280,height=720)
+        print(cam)
+        ret,img = cam.video.read()
+        print(img.shape)
+    except Exception as e:
+        traceback.print_exc()
+        print("Error occurred while processing the camera feed", str(e))
+    finally:
+        if 'cam' in locals() or 'cam' in globals():  # checks if `cam` variable is defined
+            cam.video.release()
 
